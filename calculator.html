@@ -1,0 +1,192 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="calculator.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="calculator.js"></script>
+</head>
+
+<body>
+<div id="calculator">
+    <div>
+        <div id="mortgage-loan-calculator" class="grid calculator__container +mg-bottom-sm">
+            <div class="grid-cell size-1of2--sm size-full--xs calculator__gray-bg +pd-sm box --md">
+                <div class="+mg-bottom-xs">
+                    <div>
+                        <div data-format="$" class="form-input --data-format-left">
+                            <label data-tool-tip="showInfoIcon" for="loanAmount" class="form-label">
+                                <span class="+float-left">Loan amount</span>
+                            </label>
+                            <input name="loanAmount" id="loanAmount" value="1000">
+                            <span class="error-message number-input__error" style="display:none;">Invalid loan amount</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="+mg-bottom-xs">
+                    <div>
+                        <div data-format="" class="form-input">
+                            <label data-tool-tip="showInfoIcon" for="termInMonths" class="form-label"><span class="+float-left">Loan term in months</span>
+                            </label>
+                            <input name="termInMonths" id="termInMonths" class="form-control" maxlength="3" value="12">
+                            <span class="error-message number-input__error" style="display:none;">Invalid loan term</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-test="creditScore" class="component-dropdown +mg-bottom-xs">
+                    <label data-tool-tip="showInfoIcon" for="creditScore" class="form-label">
+                        <span class="+float-left">Credit Score</span>
+                    </label>
+                    <select tabindex="0" id="creditScore" class="browser-default custom-select">
+                        <option disabled="disabled" value="">Please select an option</option> 
+                        <option>Excellent (740+)</option>
+                        <option selected>Good (680-739)</option>
+                        <option>Average (650-679)</option>
+                        <option>Fair (620-649)</option>
+                        <option>Poor (&lt; 619)</option>
+                    </select>
+                </div>
+
+                <div class="grid +mg-bottom-xxs --align-bottom">
+                    <div class="grid grid-cell size-5of8">
+                        <div class="grid-cell size-7of8">
+                            <div>
+                                <div data-format="%" class="form-input --data-format-right">
+                                    <label data-tool-tip="showInfoIcon" for="interestRate" class="form-label"><span class="+float-left">Interest rate per year</span>
+                                    </label>
+                                    <input name="interestRate" id="interestRate" value="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-cell size-3of8" style="padding: 0;">
+                        <button id="loan-calculator-button" class="button --primary --beta --small"> Calculate </button>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell size-1of2--sm size-full--xs calculator__results-section +pd-sm +text-center box --md">
+                <div>
+                    <p class="+mg-bottom-sm +mg-top-sm">Monthly Payments</p>
+                    <div>
+                        <p id="monthly-payments" class="numeral --alpha"><span class="numeral__accent --currency">$</span>87.92</p>
+                    </div>
+                    <div class="calculator__total-paid +border-bottom +mg-bottom-xxs +pd-bottom-xxs"><span>Total Principal Paid</span> <span id="total_principal_value">$1,000</span></div>
+                    <div class="calculator__total-paid +mg-bottom-sm"><span>Total Interest Paid</span> <span id="total_interest_paid">$54.99</span></div>
+                </div>
+                <div>
+                    <button class="calculator__amortization-link button --secondary --small --full-width +pd-left-xs +pd-right-xs +mg-top-xl +display-flex +align-items-center +justify-content-center">
+                        <span class="save-icon"><svg width="42" height="50" viewBox="0 0 42 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon__glyph icon --sm +fill-gray"><title>Bookmark Icon</title> <path fill="#000000" fill-rule="nonzero" d="M6.0338 41.659L21 32.6079l14.9662 9.0513V5.9877H6.0338V41.659zM3 47V3h36v44L21 36.1139 3 47z"></path> </svg></span>
+                        <span id="amortization-schedule-letter">Show amortization schedule</span>
+                    </button>
+                </div>
+            </div>
+            <div class="grid-cell size-1of1 size-full extraPaymentsRoot +border-bottom">
+                <div class="faq__item +border-bottom-none +pd-left-xs +pd-right-xs">
+                    <div style="position: relative">
+                        <a class="calculator__calibre faq__main-title +display-block +heading-zeta">
+                            <span id="extra-payments-letter">ADD EXTRA PAYMENTS</span>
+                            <span class="faq__icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="-1 -2 8 8" version="1.1"><g stroke="none" stroke-width="1" fill="" fill-rule="evenodd"><g transform="translate(-134.000000, -43.000000)" fill=""><polygon points="134.707107 43 134 43.6965437 137.353553 47 140.707107 43.6965437 140 43 137.358734 45.6018093"></polygon></g></g></svg></span>
+                        </a>
+                    </div>
+                    <div id='extra-payments-dropdown' style='display: none; padding-top: 15px;'>
+                        <div class="+pd-top-xs +pd-bottom-xs note"> Calculate the impact of extra payments using any combination of the inputs below. To see your new estimated payoff date, click ‘Show amortization schedule’ link above. </div>
+                        <div class="extra-payment-errors +pd-bottom-xs"><span class="+display-none">* Extra payment cannot be more than the loan amount.</span></div>
+                        <!---->
+                        <div class="extraPaymentsDiv +pd-bottom-sm">
+                            <div class="grid"  style="padding-bottom: 10px">
+                                <div class="grid-cell size-2of8--sm size-5of12--xs box --xs">
+                                    <div>
+                                        <div data-format="$" class="form-input --data-format-left">
+                                            <input name="monthlyExtraPayment" id="monthlyExtraPayment" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-cell size-3of8--sm size-7of12--xs box --xs"><span class="note">to your monthly payment</span></div>
+                            </div>
+                            <div class="grid" style="padding-top: 10px; padding-bottom: 10px">
+                                <div class="grid-cell size-2of8--sm size-5of12--xs box --xs">
+                                    <div>
+                                        <div data-format="$" class="form-input --data-format-left">
+                                            <input name="yearlyExtraPayment" id="yearlyExtraPayment" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-cell size-3of8--sm size-7of12--xs box --xs"><span class="note">as an extra yearly payment occurring every:</span></div>
+                                <div class="grid-cell size-3of8--sm size-12of12--xs box --xs">
+                                    <div class="dropdown">
+                                        <select class="browser-default custom-select" tabindex="0" id="yearly_month_list">
+                                            <option value="0">January</option>
+                                            <option value="1">February</option>
+                                            <option value="2">March</option>
+                                            <option value="3">April</option>
+                                            <option value="4">May</option>
+                                            <option value="5">June</option>
+                                            <option value="6">July</option>
+                                            <option value="7">August</option>
+                                            <option value="8">September</option>
+                                            <option value="9">October</option>
+                                            <option value="10">November</option>
+                                            <option value="11">December</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid" style="padding-top: 10px">
+                                <div class="grid-cell size-2of8--sm size-5of12--xs box --xs">
+                                    <div>
+                                        <div data-format="$" class="form-input --data-format-left">
+                                            <!---->
+                                            <input name="oneTimeExtraPayment" id="oneTimeExtraPayment" value="0">
+                                        </div>
+                                        <!---->
+                                    </div>
+                                </div>
+                                <div class="grid-cell size-3of8--sm size-7of12--xs box --xs"><span class="note">as a one-time payment in:</span></div>
+                                <div class="grid grid-cell size-3of8--sm size-12of12--xs box --xs">
+                                    <div class="grid-cell size-1of2">
+                                        <div class="dropdown">
+                                            <select class="browser-default custom-select" tabindex="0" id="one_time_month_list">
+                                                <option value="0">January</option>
+                                                <option value="1">February</option>
+                                                <option value="2">March</option>
+                                                <option value="3">April</option>
+                                                <option value="4">May</option>
+                                                <option value="5">June</option>
+                                                <option value="6">July</option>
+                                                <option value="7">August</option>
+                                                <option value="8">September</option>
+                                                <option value="9">October</option>
+                                                <option value="10">November</option>
+                                                <option value="11">December</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="grid-cell size-1of2">
+                                        <div class="dropdown br-dropdown">
+                                            <select class="browser-default custom-select" tabindex="0" id="year_list">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid --align-center">
+                            <div class=" box --sm">
+                                <button class="button --primary --beta --small extraPaymentsButton" id="apply_extra_payments_button"> APPLY EXTRA PAYMENTS </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="chartContainer" style="display: none;" class="+mg-top-sm"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
