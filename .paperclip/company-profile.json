@@ -1,17 +1,17 @@
 {
   "$schema": "https://paperclip.ing/schemas/company-profile.json",
-  "name": "My Business",
-  "shortname": "mybiz",
-  "description": "Automated business operations powered by Paperclip AI agent orchestration.",
-  "mission": "Streamline and automate key business processes using coordinated AI agents.",
+  "name": "Digital Agency",
+  "shortname": "agency",
+  "description": "A digital agency helping local businesses with social media content, social media management, CRM and AI automations, and blog content.",
+  "mission": "Help local businesses grow their online presence through consistent, high-quality content and smart automation.",
   "settings": {
     "heartbeatIntervalMs": 60000,
-    "maxConcurrentAgents": 5,
+    "maxConcurrentAgents": 6,
     "requireApprovalFor": [
-      "budget_increase",
-      "scope_change",
+      "client_publishing",
+      "crm_bulk_operations",
       "external_api_calls",
-      "production_deployments"
+      "scope_change"
     ],
     "autoAssignEnabled": true,
     "defaultBranch": "main"
@@ -19,14 +19,15 @@
   "agents": [
     {
       "role": "ceo",
-      "name": "Strategist",
+      "name": "Account Director",
       "adapter": "claude_local",
-      "description": "Plans company strategy, creates and prioritizes issues, delegates to engineers, reviews progress.",
+      "description": "Oversees all client accounts. Plans content calendars, prioritizes work across clients, delegates tasks to specialists, and reviews deliverables before client approval.",
       "capabilities": [
         "planning",
         "delegation",
-        "review",
-        "goal-setting"
+        "client-strategy",
+        "content-calendar",
+        "review"
       ],
       "config": {
         "model": "claude-opus-4-6",
@@ -34,15 +35,16 @@
       }
     },
     {
-      "role": "engineer",
-      "name": "Builder",
+      "role": "content-creator",
+      "name": "Content Writer",
       "adapter": "claude_local",
-      "description": "Executes technical tasks — writes code, fixes bugs, builds features, runs tests.",
+      "description": "Creates social media posts, captions, hashtag sets, and short-form copy for local business clients. Adapts tone and style to each client's brand voice.",
       "capabilities": [
-        "coding",
-        "testing",
-        "debugging",
-        "refactoring"
+        "social-media-copy",
+        "caption-writing",
+        "hashtag-research",
+        "brand-voice-adaptation",
+        "content-repurposing"
       ],
       "config": {
         "model": "claude-sonnet-4-6",
@@ -50,15 +52,50 @@
       }
     },
     {
-      "role": "qa",
-      "name": "Reviewer",
+      "role": "blog-writer",
+      "name": "Blog Specialist",
       "adapter": "claude_local",
-      "description": "Reviews completed work, checks acceptance criteria, runs quality checks, approves or requests changes.",
+      "description": "Writes SEO-optimized blog posts for local business clients. Handles keyword research, outlines, drafts, and meta descriptions to drive organic traffic.",
       "capabilities": [
-        "code-review",
-        "testing",
-        "validation",
-        "quality-assurance"
+        "blog-writing",
+        "seo-optimization",
+        "keyword-research",
+        "content-outlines",
+        "meta-descriptions"
+      ],
+      "config": {
+        "model": "claude-sonnet-4-6",
+        "maxBudgetPerCycle": 3.00
+      }
+    },
+    {
+      "role": "automation-engineer",
+      "name": "CRM & Automations Specialist",
+      "adapter": "claude_local",
+      "description": "Builds and maintains CRM workflows, email sequences, lead nurture automations, and AI-powered client engagement pipelines. Integrates tools and APIs.",
+      "capabilities": [
+        "crm-workflows",
+        "email-sequences",
+        "lead-nurture",
+        "api-integrations",
+        "automation-scripting"
+      ],
+      "config": {
+        "model": "claude-sonnet-4-6",
+        "maxBudgetPerCycle": 3.00
+      }
+    },
+    {
+      "role": "social-media-manager",
+      "name": "Social Media Manager",
+      "adapter": "claude_local",
+      "description": "Manages posting schedules, monitors engagement metrics, drafts responses to comments and DMs, and generates weekly performance reports for clients.",
+      "capabilities": [
+        "scheduling",
+        "engagement-monitoring",
+        "community-management",
+        "analytics-reporting",
+        "trend-tracking"
       ],
       "config": {
         "model": "claude-sonnet-4-6",
@@ -66,40 +103,65 @@
       }
     },
     {
-      "role": "researcher",
-      "name": "Analyst",
+      "role": "qa",
+      "name": "Quality Reviewer",
       "adapter": "claude_local",
-      "description": "Researches market data, competitor analysis, customer feedback, and business intelligence.",
+      "description": "Reviews all content and automations before delivery. Checks brand consistency, grammar, SEO quality, tone accuracy, and automation logic.",
       "capabilities": [
-        "web-search",
-        "data-analysis",
-        "report-generation",
-        "summarization"
+        "content-review",
+        "brand-consistency",
+        "grammar-check",
+        "seo-audit",
+        "automation-testing"
       ],
       "config": {
-        "model": "claude-haiku-4-5-20251001",
-        "maxBudgetPerCycle": 1.00
+        "model": "claude-sonnet-4-6",
+        "maxBudgetPerCycle": 2.00
       }
     }
   ],
   "routines": [
     {
-      "name": "daily-standup",
-      "schedule": "0 9 * * 1-5",
-      "description": "CEO reviews open issues, reprioritizes, and assigns work for the day.",
+      "name": "morning-briefing",
+      "schedule": "0 8 * * 1-5",
+      "description": "Account Director reviews all client accounts, checks content calendars, and assigns daily tasks to content creators and social media managers.",
       "agentRole": "ceo"
     },
     {
-      "name": "weekly-review",
-      "schedule": "0 17 * * 5",
-      "description": "CEO summarizes weekly progress, blockers, and plans for next week.",
-      "agentRole": "ceo"
+      "name": "content-batch",
+      "schedule": "0 9 * * 1,3",
+      "description": "Content Writer generates a batch of social media posts for all active clients based on the current content calendar.",
+      "agentRole": "content-creator"
     },
     {
-      "name": "qa-sweep",
-      "schedule": "0 16 * * 1-5",
-      "description": "QA agent reviews all issues in 'review' status.",
+      "name": "blog-drafts",
+      "schedule": "0 10 * * 2,4",
+      "description": "Blog Specialist researches keywords and drafts blog posts for clients on the publishing schedule.",
+      "agentRole": "blog-writer"
+    },
+    {
+      "name": "engagement-check",
+      "schedule": "0 11 * * 1-5",
+      "description": "Social Media Manager reviews engagement metrics, flags trending posts, and drafts responses to comments and messages.",
+      "agentRole": "social-media-manager"
+    },
+    {
+      "name": "crm-health-check",
+      "schedule": "0 14 * * 3",
+      "description": "CRM Specialist audits active automations, checks for failed workflows, and optimizes email sequence performance.",
+      "agentRole": "automation-engineer"
+    },
+    {
+      "name": "quality-review",
+      "schedule": "0 15 * * 1-5",
+      "description": "Quality Reviewer checks all content in 'review' status for brand consistency, grammar, SEO, and tone before client delivery.",
       "agentRole": "qa"
+    },
+    {
+      "name": "weekly-client-report",
+      "schedule": "0 16 * * 5",
+      "description": "Account Director compiles weekly performance summaries for each client — content published, engagement stats, automation results, and next week's plan.",
+      "agentRole": "ceo"
     }
   ]
 }
