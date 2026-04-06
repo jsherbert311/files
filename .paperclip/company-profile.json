@@ -1,0 +1,105 @@
+{
+  "$schema": "https://paperclip.ing/schemas/company-profile.json",
+  "name": "My Business",
+  "shortname": "mybiz",
+  "description": "Automated business operations powered by Paperclip AI agent orchestration.",
+  "mission": "Streamline and automate key business processes using coordinated AI agents.",
+  "settings": {
+    "heartbeatIntervalMs": 60000,
+    "maxConcurrentAgents": 5,
+    "requireApprovalFor": [
+      "budget_increase",
+      "scope_change",
+      "external_api_calls",
+      "production_deployments"
+    ],
+    "autoAssignEnabled": true,
+    "defaultBranch": "main"
+  },
+  "agents": [
+    {
+      "role": "ceo",
+      "name": "Strategist",
+      "adapter": "claude_local",
+      "description": "Plans company strategy, creates and prioritizes issues, delegates to engineers, reviews progress.",
+      "capabilities": [
+        "planning",
+        "delegation",
+        "review",
+        "goal-setting"
+      ],
+      "config": {
+        "model": "claude-opus-4-6",
+        "maxBudgetPerCycle": 5.00
+      }
+    },
+    {
+      "role": "engineer",
+      "name": "Builder",
+      "adapter": "claude_local",
+      "description": "Executes technical tasks — writes code, fixes bugs, builds features, runs tests.",
+      "capabilities": [
+        "coding",
+        "testing",
+        "debugging",
+        "refactoring"
+      ],
+      "config": {
+        "model": "claude-sonnet-4-6",
+        "maxBudgetPerCycle": 3.00
+      }
+    },
+    {
+      "role": "qa",
+      "name": "Reviewer",
+      "adapter": "claude_local",
+      "description": "Reviews completed work, checks acceptance criteria, runs quality checks, approves or requests changes.",
+      "capabilities": [
+        "code-review",
+        "testing",
+        "validation",
+        "quality-assurance"
+      ],
+      "config": {
+        "model": "claude-sonnet-4-6",
+        "maxBudgetPerCycle": 2.00
+      }
+    },
+    {
+      "role": "researcher",
+      "name": "Analyst",
+      "adapter": "claude_local",
+      "description": "Researches market data, competitor analysis, customer feedback, and business intelligence.",
+      "capabilities": [
+        "web-search",
+        "data-analysis",
+        "report-generation",
+        "summarization"
+      ],
+      "config": {
+        "model": "claude-haiku-4-5-20251001",
+        "maxBudgetPerCycle": 1.00
+      }
+    }
+  ],
+  "routines": [
+    {
+      "name": "daily-standup",
+      "schedule": "0 9 * * 1-5",
+      "description": "CEO reviews open issues, reprioritizes, and assigns work for the day.",
+      "agentRole": "ceo"
+    },
+    {
+      "name": "weekly-review",
+      "schedule": "0 17 * * 5",
+      "description": "CEO summarizes weekly progress, blockers, and plans for next week.",
+      "agentRole": "ceo"
+    },
+    {
+      "name": "qa-sweep",
+      "schedule": "0 16 * * 1-5",
+      "description": "QA agent reviews all issues in 'review' status.",
+      "agentRole": "qa"
+    }
+  ]
+}
