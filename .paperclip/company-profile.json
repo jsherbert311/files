@@ -159,73 +159,84 @@
     }
   ],
   "workflow": {
-    "description": "Social media content pipeline from research to scheduled post in Publer",
-    "humanGate": "After Stage 5 (Fact Check), YOU review all content. Only approved posts move to Publer.",
+    "description": "Social media content pipeline — always keep 4+ weeks of content ahead for every client",
+    "humanGate": "Jason reviews all content in 'In Review'. Only cards he moves to 'Approved' go to Publer. Nothing auto-posts.",
+    "trelloLists": ["Content Calendar", "Fact Check", "In Production", "In Review", "Approved", "Published", "Archive"],
+    "contentCalendar": {
+      "planningHorizon": "8 to 12 weeks out",
+      "postsPerWeek": 4,
+      "minimumBuffer": "4 weeks ahead at all times",
+      "cardGrouping": "By week (e.g., Week 1 - Apr 06-Apr 11)",
+      "formatRotation": {
+        "weekA": "2 Videos + 1 Image + 1 Carousel",
+        "weekB": "2 Videos + 2 Images",
+        "pattern": "Alternate Week A and Week B"
+      },
+      "crossPlatform": "Same post content used across all platforms the client is on, unless client profile specifies different per-platform rules"
+    },
     "stages": [
       {
         "stage": 1,
-        "name": "Research",
-        "agent": "researcher",
-        "output": "Competitor analysis + trending topics report",
-        "trelloList": "Backlog",
-        "automated": true
+        "name": "Research & Plan",
+        "agents": ["researcher", "content-planner"],
+        "output": "Competitor analysis, trending topics, and new weekly cards added to Content Calendar",
+        "trelloList": "Content Calendar",
+        "automated": true,
+        "note": "Agents research trends and populate Content Calendar with cards 8-12 weeks out. Each card has topic, format, visual direction, and content pillar."
       },
       {
         "stage": 2,
-        "name": "Plan",
-        "agent": "content-planner",
-        "output": "Weekly content calendar + Trello cards created",
-        "trelloList": "This Week",
-        "automated": true
+        "name": "Fact Check",
+        "agents": ["fact-checker"],
+        "output": "Verified content plan — claims, compliance, and accuracy checked before production begins",
+        "trelloList": "Fact Check",
+        "automated": true,
+        "note": "Fact Checker verifies all claims, topics, and planned content BEFORE any production work starts. This prevents wasted effort on content that would fail compliance. Cards only move to In Production after passing fact check."
       },
       {
         "stage": 3,
-        "name": "Write",
-        "agent": "content-creator",
-        "output": "Post copy, captions, hashtags on each Trello card",
-        "trelloList": "Writing",
-        "automated": true
+        "name": "In Production",
+        "agents": ["content-creator", "visual-designer"],
+        "output": "Full post copy + Moda visuals on the card",
+        "trelloList": "In Production",
+        "automated": true,
+        "note": "Agent or team member picks up a fact-checked card, writes the copy, and creates visuals in Moda (for image/carousel). Video cards get scripts written but stay here until manually produced."
       },
       {
         "stage": 4,
-        "name": "Design",
-        "agent": "visual-designer",
-        "output": "Moda visuals attached to each Trello card",
-        "trelloList": "Visual Design",
-        "automated": true
+        "name": "In Review",
+        "agents": [],
+        "output": "Completed content ready for Jason's review",
+        "trelloList": "In Review",
+        "automated": true,
+        "note": "Production-complete cards land here for Jason to review. Copy, visuals, and fact check are all done."
       },
       {
         "stage": 5,
-        "name": "Fact Check",
-        "agent": "fact-checker",
-        "output": "Verified content with sources",
-        "trelloList": "Fact Check",
-        "automated": true
+        "name": "Approved",
+        "agent": "human",
+        "output": "Jason approves or requests changes",
+        "trelloList": "Approved",
+        "automated": false,
+        "note": "JASON is the gatekeeper. He moves cards here after review. Nothing proceeds without his approval."
       },
       {
         "stage": 6,
-        "name": "Human QA",
-        "agent": "human",
-        "output": "You review and approve or request changes",
-        "trelloList": "Your Review",
-        "automated": false,
-        "note": "YOU are the gatekeeper. Mark cards green (approved) or yellow (needs revision)."
+        "name": "Published",
+        "agent": "publisher",
+        "output": "Post added to correct Publer workspace (as draft or scheduled)",
+        "trelloList": "Published",
+        "automated": true,
+        "note": "Publishing Agent picks up Approved cards and pushes to the client's Publer workspace. Card moves to Published."
       },
       {
         "stage": 7,
-        "name": "Schedule to Publer",
-        "agent": "publisher",
-        "output": "Post scheduled in correct client Publer workspace",
-        "trelloList": "Scheduled",
-        "automated": true
-      },
-      {
-        "stage": 8,
-        "name": "Published",
-        "agent": "publisher",
-        "output": "Post is live",
-        "trelloList": "Posted",
-        "automated": true
+        "name": "Archive",
+        "agent": "content-planner",
+        "output": "Previous week's published content archived",
+        "trelloList": "Archive",
+        "automated": true,
+        "note": "Every Monday, previous week's Published cards move to Archive to keep the board clean."
       }
     ]
   },
@@ -233,49 +244,55 @@
     {
       "name": "morning-briefing",
       "schedule": "0 8 * * 1-5",
-      "description": "Account Director reviews Trello boards, checks pipeline status, flags anything stuck or overdue.",
+      "description": "Account Director checks all client Trello boards: How many weeks ahead is each client? Any cards stuck in In Production? Anything in In Review waiting for Jason? Any Approved cards waiting for Publer? Flags gaps and blockers.",
       "agentRole": "ceo"
+    },
+    {
+      "name": "monday-archive",
+      "schedule": "0 7 * * 1",
+      "description": "Move all previous week's cards from Published to Archive across all client boards. Verify current week has content in the pipeline.",
+      "agentRole": "content-planner"
     },
     {
       "name": "competitor-research",
       "schedule": "0 9 * * 1",
-      "description": "Competitor Analyst researches competitor profiles and trending topics for all clients.",
+      "description": "Competitor Analyst researches competitor profiles and trending topics for all clients. Feeds findings to Content Strategist for calendar planning.",
       "agentRole": "researcher"
     },
     {
-      "name": "content-planning",
+      "name": "calendar-fill",
       "schedule": "0 10 * * 1",
-      "description": "Content Strategist builds weekly content plan and creates Trello cards for each post.",
+      "description": "Content Strategist checks each client's Content Calendar depth. If any client has fewer than 4 weeks ahead, create new weekly cards with topics, formats, visual direction, and content pillars. Target: 8-12 weeks out.",
       "agentRole": "content-planner"
     },
     {
-      "name": "content-batch",
+      "name": "content-production",
       "schedule": "0 9 * * 2,4",
-      "description": "Content Writer writes post copy for all cards in the 'Writing' list.",
+      "description": "Content Writer picks up cards from Content Calendar, writes full post copy, captions, hashtags, and moves them to In Production. Follows each client's profile for tone, compliance, and platform rules.",
       "agentRole": "content-creator"
     },
     {
-      "name": "visual-batch",
+      "name": "visual-production",
       "schedule": "0 11 * * 2,4",
-      "description": "Visual Designer creates Moda graphics for all cards in the 'Visual Design' list.",
+      "description": "Visual Designer picks up image and carousel cards from In Production, creates visuals in Moda, attaches them to the card. Video cards get scripts but are flagged for manual production. Completed cards move to In Review.",
       "agentRole": "visual-designer"
     },
     {
       "name": "fact-check-sweep",
-      "schedule": "0 14 * * 2,4",
-      "description": "Fact Checker reviews all content in the 'Fact Check' list for accuracy.",
+      "schedule": "0 13 * * 1,3",
+      "description": "Fact Checker reviews all cards in the Fact Check list — verifies claims, topics, and compliance per the client profile BEFORE production begins. Cards pass to In Production only after clearing fact check. This prevents wasted work on non-compliant content.",
       "agentRole": "fact-checker"
     },
     {
       "name": "publish-approved",
       "schedule": "0 10 * * 3,5",
-      "description": "Publishing Agent picks up all cards you've approved (green label) and schedules them to the correct Publer workspace.",
+      "description": "Publishing Agent picks up all cards Jason has moved to Approved, pushes them to the correct Publer workspace as drafts, and moves the Trello card to Published.",
       "agentRole": "publisher"
     },
     {
       "name": "weekly-client-report",
       "schedule": "0 16 * * 5",
-      "description": "Account Director compiles weekly summary — posts scheduled, engagement preview, pipeline status for next week.",
+      "description": "Account Director compiles weekly summary per client: content calendar depth, posts published this week, cards in pipeline, any gaps or issues for next week.",
       "agentRole": "ceo"
     }
   ]
