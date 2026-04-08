@@ -2,14 +2,14 @@
   "$schema": "https://paperclip.ing/schemas/company-profile.json",
   "name": "Digital Agency",
   "shortname": "agency",
-  "description": "A digital agency helping local businesses with social media content creation, management, CRM automations, and blog content.",
-  "mission": "Help local businesses grow their online presence through data-driven content strategy, consistent high-quality content, and smart automation.",
+  "description": "A digital agency helping local businesses with social media content creation, management, and engagement-driven posting strategies.",
+  "mission": "Help local businesses grow their online presence through quality, relevant social media content that drives real engagement.",
   "settings": {
     "heartbeatIntervalMs": 60000,
     "maxConcurrentAgents": 7,
     "requireApprovalFor": [
+      "publer_scheduling",
       "client_publishing",
-      "crm_bulk_operations",
       "external_api_calls",
       "scope_change"
     ],
@@ -20,20 +20,30 @@
     "canva": {
       "type": "mcp",
       "status": "connected",
-      "description": "Visual design — Instagram posts, carousels, stories, Facebook posts, etc."
+      "description": "Visual design — Instagram posts, carousels, stories, Facebook posts."
     },
     "moda": {
       "type": "mcp",
       "status": "setup_required",
       "setupCommand": "claude mcp add --transport http moda https://mcp.moda.app",
-      "description": "AI design tool for editable visual assets and social media graphics."
+      "description": "Primary visual design tool — AI-generated editable social media graphics."
     },
     "trello": {
       "type": "mcp",
       "status": "setup_required",
       "setupCommand": "claude mcp add trello -- node /path/to/trello-desktop-mcp/dist/index.js",
       "credentialsUrl": "https://trello.com/app-key",
-      "description": "Content pipeline management — cards for each post, workflow stages."
+      "description": "Content pipeline — Trello cards for each post, workflow stages."
+    },
+    "publer": {
+      "type": "rest_api",
+      "status": "setup_required",
+      "baseUrl": "https://app.publer.com/api/v1/",
+      "authHeader": "Authorization: Bearer-API YOUR_API_KEY",
+      "workspaceHeader": "Publer-Workspace-Id: YOUR_WORKSPACE_ID",
+      "credentialsUrl": "Publer > Settings > API Keys",
+      "plan_required": "Business or Enterprise",
+      "description": "Social media scheduling — each client has their own Publer workspace."
     }
   },
   "agents": [
@@ -41,12 +51,11 @@
       "role": "ceo",
       "name": "Account Director",
       "adapter": "claude_local",
-      "description": "Oversees all client accounts. Plans content calendars, prioritizes work, delegates tasks, reviews deliverables, and compiles weekly client reports.",
+      "description": "Oversees all client accounts. Prioritizes work, delegates tasks, reviews pipeline status, and compiles weekly client reports.",
       "capabilities": [
         "planning",
         "delegation",
         "client-strategy",
-        "content-calendar",
         "review"
       ],
       "config": {
@@ -58,13 +67,12 @@
       "role": "researcher",
       "name": "Competitor Analyst",
       "adapter": "claude_local",
-      "description": "Researches competitor social media profiles, identifies trending topics, performs gap analysis, and delivers content opportunity reports for each client.",
+      "description": "Researches competitor social media profiles, identifies trending topics and content gaps, and delivers opportunity reports for each client.",
       "capabilities": [
         "web-search",
         "competitor-analysis",
         "trend-research",
-        "gap-analysis",
-        "report-generation"
+        "gap-analysis"
       ],
       "config": {
         "model": "claude-sonnet-4-6",
@@ -75,12 +83,11 @@
       "role": "content-planner",
       "name": "Content Strategist",
       "adapter": "claude_local",
-      "description": "Turns research into structured weekly/monthly content plans with specific post topics, formats, platforms, and scheduling. Creates Trello cards for each post.",
+      "description": "Builds weekly content plans from research. Creates Trello cards for each post with topic, format, platform, and visual direction.",
       "capabilities": [
         "content-planning",
         "content-calendar",
-        "trello-management",
-        "workflow-organization"
+        "trello-management"
       ],
       "config": {
         "model": "claude-sonnet-4-6",
@@ -91,30 +98,12 @@
       "role": "content-creator",
       "name": "Content Writer",
       "adapter": "claude_local",
-      "description": "Writes social media post copy, captions, hashtag sets, and content batches adapted to each client's brand voice and target audience.",
+      "description": "Writes social media post copy, captions, and hashtag sets tailored to each client's brand voice, audience, and platform.",
       "capabilities": [
         "social-media-copy",
         "caption-writing",
         "hashtag-research",
-        "brand-voice-adaptation",
-        "content-repurposing"
-      ],
-      "config": {
-        "model": "claude-sonnet-4-6",
-        "maxBudgetPerCycle": 3.00
-      }
-    },
-    {
-      "role": "blog-writer",
-      "name": "Blog Specialist",
-      "adapter": "claude_local",
-      "description": "Writes SEO-optimized blog posts. Handles keyword research, outlines, drafts, and meta descriptions to drive organic traffic for clients.",
-      "capabilities": [
-        "blog-writing",
-        "seo-optimization",
-        "keyword-research",
-        "content-outlines",
-        "meta-descriptions"
+        "brand-voice-adaptation"
       ],
       "config": {
         "model": "claude-sonnet-4-6",
@@ -125,13 +114,12 @@
       "role": "visual-designer",
       "name": "Visual Designer",
       "adapter": "claude_local",
-      "description": "Creates social media visuals using Canva and Moda. Generates Instagram posts, carousels, stories, Facebook graphics, and other visual assets on-brand.",
+      "description": "Creates social media visuals in Moda (primary) and Canva (secondary). Generates images, carousels, and stories based on approved copy and visual direction.",
       "capabilities": [
-        "canva-design",
         "moda-design",
+        "canva-design",
         "image-generation",
-        "carousel-creation",
-        "brand-kit-application"
+        "carousel-creation"
       ],
       "config": {
         "model": "claude-sonnet-4-6",
@@ -142,12 +130,11 @@
       "role": "fact-checker",
       "name": "Fact Checker",
       "adapter": "claude_local",
-      "description": "Verifies all claims, statistics, and factual information in content before publishing. Flags unsubstantiated claims and suggests corrections.",
+      "description": "Verifies claims, statistics, and information in post copy before it reaches QA. Flags unsubstantiated claims and suggests corrections.",
       "capabilities": [
         "fact-verification",
         "source-checking",
-        "claim-analysis",
-        "compliance-review"
+        "claim-analysis"
       ],
       "config": {
         "model": "claude-sonnet-4-6",
@@ -155,81 +142,90 @@
       }
     },
     {
-      "role": "qa",
-      "name": "Quality Reviewer",
+      "role": "publisher",
+      "name": "Publishing Agent",
       "adapter": "claude_local",
-      "description": "Final review of all content and visuals. Checks brand consistency, grammar, tone, SEO, and ensures everything matches the content plan before client delivery.",
+      "description": "After human QA approval, schedules posts to the correct Publer workspace for each client. Exports visuals, builds API payloads, confirms scheduling, and updates Trello.",
       "capabilities": [
-        "content-review",
-        "brand-consistency",
-        "grammar-check",
-        "seo-audit",
-        "visual-review"
+        "publer-api",
+        "post-scheduling",
+        "media-export",
+        "trello-updates"
       ],
       "config": {
         "model": "claude-sonnet-4-6",
-        "maxBudgetPerCycle": 2.00
+        "maxBudgetPerCycle": 1.50
       }
     }
   ],
   "workflow": {
-    "description": "End-to-end content pipeline from research to published post",
+    "description": "Social media content pipeline from research to scheduled post in Publer",
+    "humanGate": "After Stage 5 (Fact Check), YOU review all content. Only approved posts move to Publer.",
     "stages": [
       {
         "stage": 1,
         "name": "Research",
         "agent": "researcher",
         "output": "Competitor analysis + trending topics report",
-        "trelloList": "Backlog"
+        "trelloList": "Backlog",
+        "automated": true
       },
       {
         "stage": 2,
         "name": "Plan",
         "agent": "content-planner",
         "output": "Weekly content calendar + Trello cards created",
-        "trelloList": "This Week"
+        "trelloList": "This Week",
+        "automated": true
       },
       {
         "stage": 3,
         "name": "Write",
         "agent": "content-creator",
-        "output": "Post copy, captions, hashtags",
-        "trelloList": "Writing"
+        "output": "Post copy, captions, hashtags on each Trello card",
+        "trelloList": "Writing",
+        "automated": true
       },
       {
         "stage": 4,
         "name": "Design",
         "agent": "visual-designer",
-        "output": "Canva/Moda visuals for each post",
-        "trelloList": "Visual Design"
+        "output": "Moda visuals attached to each Trello card",
+        "trelloList": "Visual Design",
+        "automated": true
       },
       {
         "stage": 5,
         "name": "Fact Check",
         "agent": "fact-checker",
-        "output": "Verified content with source documentation",
-        "trelloList": "Fact Check"
+        "output": "Verified content with sources",
+        "trelloList": "Fact Check",
+        "automated": true
       },
       {
         "stage": 6,
-        "name": "Review",
-        "agent": "qa",
-        "output": "Approved content ready for client",
-        "trelloList": "Review"
+        "name": "Human QA",
+        "agent": "human",
+        "output": "You review and approve or request changes",
+        "trelloList": "Your Review",
+        "automated": false,
+        "note": "YOU are the gatekeeper. Mark cards green (approved) or yellow (needs revision)."
       },
       {
         "stage": 7,
-        "name": "Client Approval",
-        "agent": "ceo",
-        "output": "Client sign-off",
-        "trelloList": "Client Approval"
+        "name": "Schedule to Publer",
+        "agent": "publisher",
+        "output": "Post scheduled in correct client Publer workspace",
+        "trelloList": "Scheduled",
+        "automated": true
       },
       {
         "stage": 8,
-        "name": "Schedule & Publish",
-        "agent": "content-planner",
-        "output": "Scheduled in posting tool",
-        "trelloList": "Scheduled"
+        "name": "Published",
+        "agent": "publisher",
+        "output": "Post is live",
+        "trelloList": "Posted",
+        "automated": true
       }
     ]
   },
@@ -237,55 +233,49 @@
     {
       "name": "morning-briefing",
       "schedule": "0 8 * * 1-5",
-      "description": "Account Director reviews all client boards in Trello, checks pipeline status, and assigns daily tasks.",
+      "description": "Account Director reviews Trello boards, checks pipeline status, flags anything stuck or overdue.",
       "agentRole": "ceo"
     },
     {
       "name": "competitor-research",
       "schedule": "0 9 * * 1",
-      "description": "Competitor Analyst runs weekly research on competitor profiles, trending topics, and content opportunities for all clients.",
+      "description": "Competitor Analyst researches competitor profiles and trending topics for all clients.",
       "agentRole": "researcher"
     },
     {
       "name": "content-planning",
       "schedule": "0 10 * * 1",
-      "description": "Content Strategist builds the weekly content plan based on research and creates Trello cards for each post.",
+      "description": "Content Strategist builds weekly content plan and creates Trello cards for each post.",
       "agentRole": "content-planner"
     },
     {
       "name": "content-batch",
       "schedule": "0 9 * * 2,4",
-      "description": "Content Writer writes post copy for all cards in the 'Writing' list across client boards.",
+      "description": "Content Writer writes post copy for all cards in the 'Writing' list.",
       "agentRole": "content-creator"
     },
     {
       "name": "visual-batch",
       "schedule": "0 11 * * 2,4",
-      "description": "Visual Designer creates Canva/Moda graphics for all cards in the 'Visual Design' list.",
+      "description": "Visual Designer creates Moda graphics for all cards in the 'Visual Design' list.",
       "agentRole": "visual-designer"
-    },
-    {
-      "name": "blog-drafts",
-      "schedule": "0 10 * * 3",
-      "description": "Blog Specialist researches keywords and drafts blog posts for clients on the publishing schedule.",
-      "agentRole": "blog-writer"
     },
     {
       "name": "fact-check-sweep",
       "schedule": "0 14 * * 2,4",
-      "description": "Fact Checker reviews all content in the 'Fact Check' list for accuracy and compliance.",
+      "description": "Fact Checker reviews all content in the 'Fact Check' list for accuracy.",
       "agentRole": "fact-checker"
     },
     {
-      "name": "quality-review",
-      "schedule": "0 15 * * 1-5",
-      "description": "Quality Reviewer checks all content in the 'Review' list for brand consistency, grammar, and overall quality.",
-      "agentRole": "qa"
+      "name": "publish-approved",
+      "schedule": "0 10 * * 3,5",
+      "description": "Publishing Agent picks up all cards you've approved (green label) and schedules them to the correct Publer workspace.",
+      "agentRole": "publisher"
     },
     {
       "name": "weekly-client-report",
       "schedule": "0 16 * * 5",
-      "description": "Account Director compiles weekly performance summaries for each client — content published, pipeline status, and next week's plan.",
+      "description": "Account Director compiles weekly summary — posts scheduled, engagement preview, pipeline status for next week.",
       "agentRole": "ceo"
     }
   ]

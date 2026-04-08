@@ -29,6 +29,12 @@ npx paperclipai agent local-cli <agentRef>
 
 ### 3. Connect MCP Integrations
 
+**Moda** (primary visual design tool):
+```bash
+claude mcp add --transport http moda https://mcp.moda.app
+```
+Then type `/mcp` in Claude Code to complete OAuth sign-in.
+
 **Trello** (content pipeline management):
 ```bash
 git clone https://github.com/kocakli/trello-desktop-mcp.git
@@ -39,22 +45,19 @@ claude mcp add trello -- node /path/to/trello-desktop-mcp/dist/index.js \
 ```
 Get credentials at https://trello.com/app-key
 
-**Moda** (AI visual design):
-```bash
-claude mcp add --transport http moda https://mcp.moda.app
-```
-Then type `/mcp` in Claude Code to complete OAuth sign-in.
+**Canva** — Already connected as MCP tool (secondary design option).
 
-**Canva** — Already connected as MCP tool.
+**Publer** — REST API integration (Business or Enterprise plan required).
+Set `PUBLER_API_KEY` in your environment. Each client has their own Publer workspace.
 
 ### 4. Environment Setup
 
 Copy `.paperclip/env.example` to `.env` and fill in your values.
 
-## Content Pipeline Workflow
+## Content Pipeline
 
 ```
-Research → Plan → Write → Design → Fact Check → Review → Client Approval → Schedule
+Research → Plan → Write → Design (Moda) → Fact Check → YOUR QA → Publer
 ```
 
 | Stage | Agent | Trello List | What Happens |
@@ -62,11 +65,13 @@ Research → Plan → Write → Design → Fact Check → Review → Client Appr
 | 1. Research | Competitor Analyst | Backlog | Analyze competitor profiles, find trending topics |
 | 2. Plan | Content Strategist | This Week | Build content calendar, create Trello cards |
 | 3. Write | Content Writer | Writing | Write post copy, captions, hashtags |
-| 4. Design | Visual Designer | Visual Design | Create visuals in Canva/Moda |
+| 4. Design | Visual Designer | Visual Design | Create visuals in Moda |
 | 5. Fact Check | Fact Checker | Fact Check | Verify claims, flag issues |
-| 6. Review | Quality Reviewer | Review | Brand consistency, grammar, final QA |
-| 7. Approve | Account Director | Client Approval | Client sign-off |
-| 8. Publish | Content Strategist | Scheduled → Posted | Schedule and publish |
+| 6. **Your QA** | **You (human)** | **Your Review** | **You approve or request changes** |
+| 7. Schedule | Publishing Agent | Scheduled | Push to correct Publer workspace |
+| 8. Live | Publishing Agent | Posted | Post is published |
+
+**You are the gatekeeper at Stage 6.** Nothing goes to Publer without your approval.
 
 ## Project Structure
 
@@ -79,11 +84,12 @@ Research → Plan → Write → Design → Fact Check → Review → Client Appr
   paperclip-competitor-research/SKILL.md  — Competitor analysis & trend research
   paperclip-content-planning/SKILL.md     — Content calendars & Trello card creation
   paperclip-social-content/SKILL.md       — Social media copywriting
-  paperclip-blog-content/SKILL.md         — SEO blog writing
-  paperclip-visual-design/SKILL.md        — Canva & Moda visual creation
+  paperclip-blog-content/SKILL.md         — SEO blog writing (when needed)
+  paperclip-visual-design/SKILL.md        — Moda & Canva visual creation
   paperclip-fact-checking/SKILL.md        — Content accuracy verification
   paperclip-trello-workflow/SKILL.md      — Trello pipeline management
-  paperclip-crm-automation/SKILL.md       — CRM workflows & automations
+  paperclip-publer-scheduling/SKILL.md    — Publer workspace scheduling
+  paperclip-crm-automation/SKILL.md       — CRM workflows & automations (when needed)
 
 .paperclip/
   company-profile.json                    — Agency profile with agents, workflow & routines
@@ -94,28 +100,26 @@ Research → Plan → Write → Design → Fact Check → Review → Client Appr
 
 | Role | Name | Model | Purpose |
 |------|------|-------|---------|
-| CEO | Account Director | claude-opus-4-6 | Client strategy, delegation, weekly reports |
+| CEO | Account Director | claude-opus-4-6 | Pipeline oversight, delegation, weekly reports |
 | Researcher | Competitor Analyst | claude-sonnet-4-6 | Competitor profiles, trending topics, gap analysis |
-| Planner | Content Strategist | claude-sonnet-4-6 | Content calendars, Trello cards, scheduling |
+| Planner | Content Strategist | claude-sonnet-4-6 | Content calendars, Trello cards |
 | Content Creator | Content Writer | claude-sonnet-4-6 | Social media posts, captions, hashtags |
-| Blog Writer | Blog Specialist | claude-sonnet-4-6 | SEO blog posts, keyword research |
-| Visual Designer | Visual Designer | claude-sonnet-4-6 | Canva & Moda social media graphics |
+| Visual Designer | Visual Designer | claude-sonnet-4-6 | Moda & Canva social media graphics |
 | Fact Checker | Fact Checker | claude-sonnet-4-6 | Claim verification, source checking |
-| QA | Quality Reviewer | claude-sonnet-4-6 | Brand consistency, grammar, final review |
+| Publisher | Publishing Agent | claude-sonnet-4-6 | Publer scheduling after your QA approval |
 
 ## Automated Routines
 
 | Routine | Schedule | Agent | What It Does |
 |---------|----------|-------|--------------|
-| Morning Briefing | 8am M-F | Account Director | Review Trello boards, assign daily tasks |
+| Morning Briefing | 8am M-F | Account Director | Review Trello boards, flag overdue items |
 | Competitor Research | 9am Mon | Competitor Analyst | Weekly competitor & trend analysis |
 | Content Planning | 10am Mon | Content Strategist | Build weekly plan, create Trello cards |
 | Content Batch | 9am Tue/Thu | Content Writer | Write copy for all posts in pipeline |
-| Visual Batch | 11am Tue/Thu | Visual Designer | Create Canva/Moda graphics |
-| Blog Drafts | 10am Wed | Blog Specialist | Research keywords, draft blog posts |
+| Visual Batch | 11am Tue/Thu | Visual Designer | Create Moda graphics for posts |
 | Fact Check Sweep | 2pm Tue/Thu | Fact Checker | Verify all content in fact check queue |
-| Quality Review | 3pm M-F | Quality Reviewer | Review content before delivery |
-| Weekly Client Report | 4pm Fri | Account Director | Compile performance summaries |
+| Publish Approved | 10am Wed/Fri | Publishing Agent | Schedule your approved posts to Publer |
+| Weekly Client Report | 4pm Fri | Account Director | Compile weekly performance summaries |
 
 ## Useful Commands
 
