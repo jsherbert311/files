@@ -1,0 +1,98 @@
+{
+  "description": "Maps each client to their Publer workspace ID and connected social accounts. Workspace IDs and account IDs need to be populated by querying the Publer API: GET /workspaces and GET /accounts.",
+  "how_to_populate": "Run: curl -H 'Authorization: Bearer-API YOUR_KEY' https://app.publer.com/api/v1/workspaces — then match each workspace name to the client below and fill in the IDs.",
+  "clients": [
+    {
+      "name": "Ballou Education",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Brenda Brandhorst",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Gateway Restoration",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Hitched and Poured",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Jake Freeman - Clarity Health Functional Psychiatry",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "MVS Tags and Title",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Mountain View Funeral Home",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "QCRNRG",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Queen Creek Rotary",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "San Tan Mountain View Funeral Home",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Superstition Funeral Home",
+      "type": "business",
+      "testing": true,
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Test-Moe",
+      "type": "business",
+      "testing": true,
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "That Social Geek",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Three Arrows Mental Health",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    },
+    {
+      "name": "Underground Burger",
+      "type": "business",
+      "publerWorkspaceId": "",
+      "accounts": {}
+    }
+  ]
+}
