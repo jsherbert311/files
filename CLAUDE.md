@@ -57,17 +57,18 @@ Copy `.paperclip/env.example` to `.env` and fill in your values.
 ## Content Pipeline
 
 ```
-Content Calendar → In Production → In Review → Approved → Published → Archive
+Content Calendar → Fact Check → In Production → In Review → Approved → Published → Archive
 ```
 
 | Stage | Agent | Trello List | What Happens |
 |-------|-------|-------------|-------------|
 | 1. Research & Plan | Competitor Analyst + Content Strategist | Content Calendar | Research trends, create weekly cards 8-12 weeks out (4 posts/week) |
-| 2. In Production | Content Writer + Visual Designer | In Production | Write copy, create Moda visuals (image/carousel). Video gets scripts only. |
-| 3. In Review | Fact Checker | In Review | Verify claims, check compliance, then ready for Jason |
-| 4. **Approved** | **Jason (human)** | **Approved** | **Jason reviews and approves. Nothing moves without his sign-off.** |
-| 5. Published | Publishing Agent | Published | Push to correct Publer workspace as draft |
-| 6. Archive | Content Strategist | Archive | Previous week's content archived every Monday |
+| 2. Fact Check | Fact Checker | Fact Check | Verify claims, topics, and compliance BEFORE production starts. Prevents wasted work. |
+| 3. In Production | Content Writer + Visual Designer | In Production | Write copy, create Moda visuals (image/carousel). Video gets scripts only. |
+| 4. In Review | — | In Review | Completed content waiting for Jason |
+| 5. **Approved** | **Jason (human)** | **Approved** | **Jason reviews and approves. Nothing moves without his sign-off.** |
+| 6. Published | Publishing Agent | Published | Push to correct Publer workspace as draft |
+| 7. Archive | Content Strategist | Archive | Previous week's content archived every Monday |
 
 **Jason is the gatekeeper.** Nothing goes to Publer without his approval.
 

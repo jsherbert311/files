@@ -41,8 +41,9 @@ Each client has their own Trello board with these lists:
 | List | Purpose |
 |------|---------|
 | **Content Calendar** | Future content organized by week (8-12 weeks out). Each card is labeled by week (e.g., "Week 1 - Apr 06-Apr 11"). 4 posts per week per account. |
-| **In Production** | A team member or agent has picked up the card and is actively creating the content (writing copy, designing visuals). |
-| **In Review** | Content is created and waiting for Jason's review. |
+| **Fact Check** | Cards move here BEFORE production. Fact Checker verifies claims, topics, and compliance per the client profile. Prevents wasted work on non-compliant content. |
+| **In Production** | A fact-checked card has been picked up by an agent or team member to create content (writing copy, designing visuals in Moda). |
+| **In Review** | Content is fully produced (copy + visuals) and waiting for Jason's review. |
 | **Approved** | Jason has reviewed and approved the content. Ready for Publer. |
 | **Published** | Content has been added to Publer and is scheduled or posted. |
 | **Archive** | Previous weeks' published content. Moved here weekly to keep the board clean. |
@@ -130,7 +131,8 @@ The agents' primary job is to keep the Content Calendar stocked **at least 4 wee
 
 | From | To | Who | Trigger |
 |------|----|-----|---------|
-| Content Calendar | In Production | Agent or team member | Someone picks up the card to create content |
+| Content Calendar | Fact Check | Content Strategist | New cards created, ready for compliance check |
+| Fact Check | In Production | Fact Checker | Claims and topics verified, cleared for production |
 | In Production | In Review | Agent or team member | Content (copy + visuals) is complete on the card |
 | In Review | Approved | **Jason (human)** | Jason reviews and approves |
 | Approved | Published | Publishing Agent | Content is added to Publer |

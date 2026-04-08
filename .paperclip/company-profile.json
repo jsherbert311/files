@@ -161,7 +161,7 @@
   "workflow": {
     "description": "Social media content pipeline — always keep 4+ weeks of content ahead for every client",
     "humanGate": "Jason reviews all content in 'In Review'. Only cards he moves to 'Approved' go to Publer. Nothing auto-posts.",
-    "trelloLists": ["Content Calendar", "In Production", "In Review", "Approved", "Published", "Archive"],
+    "trelloLists": ["Content Calendar", "Fact Check", "In Production", "In Review", "Approved", "Published", "Archive"],
     "contentCalendar": {
       "planningHorizon": "8 to 12 weeks out",
       "postsPerWeek": 4,
@@ -186,24 +186,33 @@
       },
       {
         "stage": 2,
+        "name": "Fact Check",
+        "agents": ["fact-checker"],
+        "output": "Verified content plan — claims, compliance, and accuracy checked before production begins",
+        "trelloList": "Fact Check",
+        "automated": true,
+        "note": "Fact Checker verifies all claims, topics, and planned content BEFORE any production work starts. This prevents wasted effort on content that would fail compliance. Cards only move to In Production after passing fact check."
+      },
+      {
+        "stage": 3,
         "name": "In Production",
         "agents": ["content-creator", "visual-designer"],
         "output": "Full post copy + Moda visuals on the card",
         "trelloList": "In Production",
         "automated": true,
-        "note": "Agent or team member picks up a card, writes the copy, and creates visuals in Moda (for image/carousel). Video cards get scripts written but stay here until manually produced."
-      },
-      {
-        "stage": 3,
-        "name": "In Review",
-        "agents": ["fact-checker"],
-        "output": "Fact-checked content ready for Jason's review",
-        "trelloList": "In Review",
-        "automated": true,
-        "note": "Fact Checker verifies claims before Jason sees it. Then Jason reviews."
+        "note": "Agent or team member picks up a fact-checked card, writes the copy, and creates visuals in Moda (for image/carousel). Video cards get scripts written but stay here until manually produced."
       },
       {
         "stage": 4,
+        "name": "In Review",
+        "agents": [],
+        "output": "Completed content ready for Jason's review",
+        "trelloList": "In Review",
+        "automated": true,
+        "note": "Production-complete cards land here for Jason to review. Copy, visuals, and fact check are all done."
+      },
+      {
+        "stage": 5,
         "name": "Approved",
         "agent": "human",
         "output": "Jason approves or requests changes",
@@ -212,7 +221,7 @@
         "note": "JASON is the gatekeeper. He moves cards here after review. Nothing proceeds without his approval."
       },
       {
-        "stage": 5,
+        "stage": 6,
         "name": "Published",
         "agent": "publisher",
         "output": "Post added to correct Publer workspace (as draft or scheduled)",
@@ -221,7 +230,7 @@
         "note": "Publishing Agent picks up Approved cards and pushes to the client's Publer workspace. Card moves to Published."
       },
       {
-        "stage": 6,
+        "stage": 7,
         "name": "Archive",
         "agent": "content-planner",
         "output": "Previous week's published content archived",
@@ -270,8 +279,8 @@
     },
     {
       "name": "fact-check-sweep",
-      "schedule": "0 14 * * 2,4",
-      "description": "Fact Checker reviews all cards in In Review for accuracy, compliance, and approved claims per the client profile. Flags issues before Jason sees them.",
+      "schedule": "0 13 * * 1,3",
+      "description": "Fact Checker reviews all cards in the Fact Check list — verifies claims, topics, and compliance per the client profile BEFORE production begins. Cards pass to In Production only after clearing fact check. This prevents wasted work on non-compliant content.",
       "agentRole": "fact-checker"
     },
     {
