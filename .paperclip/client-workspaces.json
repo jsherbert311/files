@@ -1,97 +1,102 @@
 {
-  "description": "Maps each client to their Publer workspace ID and connected social accounts. Workspace IDs and account IDs need to be populated by querying the Publer API: GET /workspaces and GET /accounts.",
-  "how_to_populate": "Run: curl -H 'Authorization: Bearer-API YOUR_KEY' https://app.publer.com/api/v1/workspaces — then match each workspace name to the client below and fill in the IDs.",
+  "description": "Maps each client to their Publer workspace ID and connected social accounts. Account IDs can be populated by querying: GET /accounts with Publer-Workspace-Id header.",
   "clients": [
     {
-      "name": "Ballou Education",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "name": "That Social Geek",
+      "industry": "Agency",
+      "publerWorkspaceId": "5ea0d3f8db279720a5afb630",
       "accounts": {}
     },
     {
       "name": "Brenda Brandhorst",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "industry": "Consumer Services",
+      "publerWorkspaceId": "63c04ba2db27971bcf9b8de5",
       "accounts": {}
     },
     {
-      "name": "Gateway Restoration",
-      "type": "business",
-      "publerWorkspaceId": "",
-      "accounts": {}
-    },
-    {
-      "name": "Hitched and Poured",
-      "type": "business",
-      "publerWorkspaceId": "",
-      "accounts": {}
-    },
-    {
-      "name": "Jake Freeman - Clarity Health Functional Psychiatry",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "name": "Ballou Education",
+      "industry": "Education",
+      "publerWorkspaceId": "6456ea54db27973a46ead74c",
       "accounts": {}
     },
     {
       "name": "MVS Tags and Title",
-      "type": "business",
-      "publerWorkspaceId": "",
-      "accounts": {}
-    },
-    {
-      "name": "Mountain View Funeral Home",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "industry": "Automotive",
+      "publerWorkspaceId": "645bb30edb27970d01f2c3e1",
       "accounts": {}
     },
     {
       "name": "QCRNRG",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "industry": "Other",
+      "publerWorkspaceId": "64710144db279732ab8db128",
       "accounts": {}
     },
     {
-      "name": "Queen Creek Rotary",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "name": "Mountain View Funeral Home",
+      "industry": "Other",
+      "publerWorkspaceId": "6524033ddb2797b4b8d8b3c1",
       "accounts": {}
     },
     {
       "name": "San Tan Mountain View Funeral Home",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "industry": "Other",
+      "publerWorkspaceId": "657db7a9db2797bf99b526b0",
       "accounts": {}
     },
     {
       "name": "Superstition Funeral Home",
-      "type": "business",
+      "industry": "Other",
       "testing": true,
-      "publerWorkspaceId": "",
+      "publerWorkspaceId": "657db7c1db2797bf7db5270e",
       "accounts": {}
     },
     {
-      "name": "Test-Moe",
-      "type": "business",
-      "testing": true,
-      "publerWorkspaceId": "",
+      "name": "Woods Law Group",
+      "industry": "Financial Services",
+      "publerWorkspaceId": "674f7224d39bc1af6bde1ca1",
       "accounts": {}
     },
     {
-      "name": "That Social Geek",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "name": "Jake Freeman - Clarity Health Functional Psychiatry",
+      "industry": "Healthcare",
+      "publerWorkspaceId": "6781ace2ab437e6a98a073aa",
+      "accounts": {}
+    },
+    {
+      "name": "Gateway Restoration",
+      "industry": "Other",
+      "publerWorkspaceId": "679418ba00a4aab8ecde9ccf",
       "accounts": {}
     },
     {
       "name": "Three Arrows Mental Health",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "industry": "Healthcare",
+      "publerWorkspaceId": "67b64c4d0201106248662672",
+      "accounts": {}
+    },
+    {
+      "name": "Queen Creek Rotary",
+      "industry": "Non-profit",
+      "publerWorkspaceId": "67d8659234027e45e5ee268e",
+      "accounts": {}
+    },
+    {
+      "name": "Hitched and Poured",
+      "industry": "Food & Beverage",
+      "publerWorkspaceId": "68116416732eaf74abbaf059",
       "accounts": {}
     },
     {
       "name": "Underground Burger",
-      "type": "business",
-      "publerWorkspaceId": "",
+      "industry": "Food & Beverage",
+      "publerWorkspaceId": "682fa8a70e6f95ac92c142e6",
+      "accounts": {}
+    },
+    {
+      "name": "Test-Moe",
+      "industry": "Agency",
+      "testing": true,
+      "publerWorkspaceId": "697a1565bca982878fda078f",
       "accounts": {}
     }
   ]
