@@ -206,19 +206,19 @@
         "stage": 4,
         "name": "In Review",
         "agents": [],
-        "output": "Completed content ready for Jason's review",
+        "output": "Completed content waiting for Jason's review in Trello",
         "trelloList": "In Review",
-        "automated": true,
-        "note": "Production-complete cards land here for Jason to review. Copy, visuals, and fact check are all done."
+        "automated": false,
+        "note": "Content lands here after production. Jason reviews in Trello. When he moves a card to the Approved list, that IS the QA approval. No separate Paperclip approval step needed."
       },
       {
         "stage": 5,
         "name": "Approved",
-        "agent": "human",
-        "output": "Jason approves or requests changes",
+        "agent": "publisher",
+        "output": "Jason has moved the card to Approved in Trello — Publishing Agent picks it up",
         "trelloList": "Approved",
-        "automated": false,
-        "note": "JASON is the gatekeeper. He moves cards here after review. Nothing proceeds without his approval."
+        "automated": true,
+        "note": "The Approved list in Trello IS the trigger. When Jason moves a card here, the Publishing Agent detects it and pushes the content to the correct Publer workspace. No other approval needed."
       },
       {
         "stage": 6,
@@ -286,7 +286,7 @@
     {
       "name": "publish-approved",
       "schedule": "0 10 * * 3,5",
-      "description": "Publishing Agent picks up all cards Jason has moved to Approved, pushes them to the correct Publer workspace as drafts, and moves the Trello card to Published.",
+      "description": "Publishing Agent checks the Approved list on each client's Trello board. Any card Jason has moved there is ready to go — push it to the correct Publer workspace as a draft and move the Trello card to Published.",
       "agentRole": "publisher"
     },
     {

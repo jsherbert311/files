@@ -47,18 +47,23 @@ Content-Type: application/json
 Each client has their own Publer workspace. Map client names to workspace IDs
 in your configuration.
 
-## Workflow: QA → Publer
+## Workflow: Trello Approved List → Publer
 
-**This is a human-gated step.** The flow is:
+**The Trello "Approved" list IS the trigger.** The flow is:
 
-1. Content moves through the pipeline: Research → Plan → Write → Design → Fact Check
-2. Content lands in the **"Review"** list on Trello
-3. **You (the human owner) do the final QA check**
-4. You mark the Trello card as **"Approved"** (green label)
-5. The agent picks up approved cards and schedules them in Publer
-6. Card moves to **"Scheduled"** in Trello
+1. Content moves through the pipeline: Content Calendar → Fact Check → In Production → In Review
+2. Content lands in the **"In Review"** list on Trello
+3. **Jason reviews the card in Trello**
+4. Jason moves the card to the **"Approved"** list — this IS the QA approval
+5. The Publishing Agent detects cards in the Approved list and pushes them to Publer
+6. Card moves to **"Published"** in Trello
 
-The agent should **never** publish content that hasn't been approved by the human.
+**How to detect approved cards:**
+- Use the Trello MCP to check the "Approved" list on each client board
+- Any card in the Approved list that hasn't been pushed to Publer yet is ready to go
+- After pushing to Publer, move the card to "Published" and add a comment confirming
+
+The agent should **never** publish content from any list other than "Approved".
 
 ## API Operations
 
