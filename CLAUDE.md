@@ -57,21 +57,28 @@ Copy `.paperclip/env.example` to `.env` and fill in your values.
 ## Content Pipeline
 
 ```
-Research → Plan → Write → Design (Moda) → Fact Check → YOUR QA → Publer
+Content Calendar → In Production → In Review → Approved → Published → Archive
 ```
 
 | Stage | Agent | Trello List | What Happens |
 |-------|-------|-------------|-------------|
-| 1. Research | Competitor Analyst | Backlog | Analyze competitor profiles, find trending topics |
-| 2. Plan | Content Strategist | This Week | Build content calendar, create Trello cards |
-| 3. Write | Content Writer | Writing | Write post copy, captions, hashtags |
-| 4. Design | Visual Designer | Visual Design | Create visuals in Moda |
-| 5. Fact Check | Fact Checker | Fact Check | Verify claims, flag issues |
-| 6. **Your QA** | **You (human)** | **Your Review** | **You approve or request changes** |
-| 7. Schedule | Publishing Agent | Scheduled | Push to correct Publer workspace |
-| 8. Live | Publishing Agent | Posted | Post is published |
+| 1. Research & Plan | Competitor Analyst + Content Strategist | Content Calendar | Research trends, create weekly cards 8-12 weeks out (4 posts/week) |
+| 2. In Production | Content Writer + Visual Designer | In Production | Write copy, create Moda visuals (image/carousel). Video gets scripts only. |
+| 3. In Review | Fact Checker | In Review | Verify claims, check compliance, then ready for Jason |
+| 4. **Approved** | **Jason (human)** | **Approved** | **Jason reviews and approves. Nothing moves without his sign-off.** |
+| 5. Published | Publishing Agent | Published | Push to correct Publer workspace as draft |
+| 6. Archive | Content Strategist | Archive | Previous week's content archived every Monday |
 
-**You are the gatekeeper at Stage 6.** Nothing goes to Publer without your approval.
+**Jason is the gatekeeper.** Nothing goes to Publer without his approval.
+
+### Content Calendar Rules
+- Always keep **4+ weeks of content ahead** for every client
+- Plan **8-12 weeks out** when possible
+- **4 posts per week** per client
+- Format rotation: Week A (2 Videos + 1 Image + 1 Carousel), Week B (2 Videos + 2 Images)
+- Same post content used across all platforms the client is on
+- Content pillars rotate — no repeats within a week or back-to-back across weeks
+- Client profiles in `.paperclip/clients/` define tone, compliance, pillars, and SEO keywords
 
 ## Project Structure
 
@@ -112,14 +119,15 @@ Research → Plan → Write → Design (Moda) → Fact Check → YOUR QA → Pub
 
 | Routine | Schedule | Agent | What It Does |
 |---------|----------|-------|--------------|
-| Morning Briefing | 8am M-F | Account Director | Review Trello boards, flag overdue items |
+| Monday Archive | 7am Mon | Content Strategist | Move last week's Published cards to Archive |
+| Morning Briefing | 8am M-F | Account Director | Check all boards: calendar depth, stuck cards, items waiting for review |
 | Competitor Research | 9am Mon | Competitor Analyst | Weekly competitor & trend analysis |
-| Content Planning | 10am Mon | Content Strategist | Build weekly plan, create Trello cards |
-| Content Batch | 9am Tue/Thu | Content Writer | Write copy for all posts in pipeline |
-| Visual Batch | 11am Tue/Thu | Visual Designer | Create Moda graphics for posts |
-| Fact Check Sweep | 2pm Tue/Thu | Fact Checker | Verify all content in fact check queue |
-| Publish Approved | 10am Wed/Fri | Publishing Agent | Schedule your approved posts to Publer |
-| Weekly Client Report | 4pm Fri | Account Director | Compile weekly performance summaries |
+| Calendar Fill | 10am Mon | Content Strategist | Check each client's calendar depth, add cards if under 4 weeks ahead |
+| Content Production | 9am Tue/Thu | Content Writer | Pick up cards, write copy, captions, hashtags |
+| Visual Production | 11am Tue/Thu | Visual Designer | Create Moda visuals for image/carousel cards, move to In Review |
+| Fact Check Sweep | 2pm Tue/Thu | Fact Checker | Verify all content in In Review for accuracy and compliance |
+| Publish Approved | 10am Wed/Fri | Publishing Agent | Push Approved cards to correct Publer workspace |
+| Weekly Client Report | 4pm Fri | Account Director | Compile per-client summary: calendar depth, posts published, pipeline status |
 
 ## Useful Commands
 
