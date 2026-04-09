@@ -50,7 +50,7 @@
     {
       "role": "ceo",
       "name": "Account Director",
-      "adapter": "claude_local",
+      "adapter": "opencode_local",
       "description": "Oversees all client accounts. Prioritizes work, delegates tasks, reviews pipeline status, and compiles weekly client reports.",
       "capabilities": [
         "planning",
@@ -59,8 +59,10 @@
         "review"
       ],
       "config": {
-        "model": "claude-opus-4-6",
-        "maxBudgetPerCycle": 5.00
+        "model": "qwen3:30b",
+        "runtime": "ollama",
+        "contextWindow": 32768,
+        "note": "Runs locally — zero Claude tokens"
       }
     },
     {
@@ -76,13 +78,13 @@
       ],
       "config": {
         "model": "claude-sonnet-4-6",
-        "maxBudgetPerCycle": 2.00
+        "note": "Stays on Claude — needs web search and nuanced analysis"
       }
     },
     {
       "role": "content-planner",
       "name": "Content Strategist",
-      "adapter": "claude_local",
+      "adapter": "opencode_local",
       "description": "Builds weekly content plans from research. Creates Trello cards for each post with topic, format, platform, and visual direction.",
       "capabilities": [
         "content-planning",
@@ -90,8 +92,10 @@
         "trello-management"
       ],
       "config": {
-        "model": "claude-sonnet-4-6",
-        "maxBudgetPerCycle": 2.00
+        "model": "qwen3:30b",
+        "runtime": "ollama",
+        "contextWindow": 32768,
+        "note": "Runs locally — uses Trello MCP via OpenCode"
       }
     },
     {
@@ -107,54 +111,58 @@
       ],
       "config": {
         "model": "claude-sonnet-4-6",
-        "maxBudgetPerCycle": 3.00
+        "note": "Stays on Claude — quality copy requires strong language skills"
       }
     },
     {
       "role": "visual-designer",
       "name": "Visual Designer",
-      "adapter": "claude_local",
-      "description": "Creates social media visuals in Moda (primary) and Canva (secondary). Generates images, carousels, and stories based on approved copy and visual direction.",
+      "adapter": "opencode_local",
+      "description": "Creates social media visuals in Moda. Generates images, carousels, and stories based on approved copy and visual direction.",
       "capabilities": [
         "moda-design",
-        "canva-design",
         "image-generation",
         "carousel-creation"
       ],
       "config": {
-        "model": "claude-sonnet-4-6",
-        "maxBudgetPerCycle": 3.00
+        "model": "qwen3:30b",
+        "runtime": "ollama",
+        "contextWindow": 32768,
+        "note": "Runs locally — uses Moda MCP via OpenCode"
       }
     },
     {
       "role": "fact-checker",
       "name": "Fact Checker",
-      "adapter": "claude_local",
-      "description": "Verifies claims, statistics, and information in post copy before it reaches QA. Flags unsubstantiated claims and suggests corrections.",
+      "adapter": "opencode_local",
+      "description": "Verifies claims, statistics, and information in post copy before it reaches QA. Checks against client profile compliance rules.",
       "capabilities": [
         "fact-verification",
         "source-checking",
         "claim-analysis"
       ],
       "config": {
-        "model": "claude-sonnet-4-6",
-        "maxBudgetPerCycle": 1.50
+        "model": "qwen3:30b",
+        "runtime": "ollama",
+        "contextWindow": 32768,
+        "note": "Runs locally — rule-based checking against client profiles"
       }
     },
     {
       "role": "publisher",
       "name": "Publishing Agent",
-      "adapter": "claude_local",
-      "description": "After human QA approval, schedules posts to the correct Publer workspace for each client. Exports visuals, builds API payloads, confirms scheduling, and updates Trello.",
+      "adapter": "opencode_local",
+      "description": "After Jason's approval in Trello, pushes posts to the correct Publer workspace. Reads Trello Approved list, calls Publer API, moves card to Published.",
       "capabilities": [
         "publer-api",
         "post-scheduling",
-        "media-export",
         "trello-updates"
       ],
       "config": {
-        "model": "claude-sonnet-4-6",
-        "maxBudgetPerCycle": 1.50
+        "model": "qwen3:30b",
+        "runtime": "ollama",
+        "contextWindow": 32768,
+        "note": "Runs locally — uses Trello MCP + Publer API via OpenCode"
       }
     }
   ],
