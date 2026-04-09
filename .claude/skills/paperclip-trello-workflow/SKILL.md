@@ -131,18 +131,29 @@ The agents' primary job is to keep the Content Calendar stocked **at least 4 wee
 
 | From | To | Who | Trigger |
 |------|----|-----|---------|
-| Content Calendar | Fact Check | Content Strategist | New cards created, ready for compliance check |
-| Fact Check | In Production | Fact Checker | Claims and topics verified, cleared for production |
-| In Production | In Review | Agent or team member | Content (copy + visuals) is complete on the card |
-| In Review | Approved | **Jason (human)** | Jason reviews and approves |
-| Approved | Published | Publishing Agent | Content is added to Publer |
+| Content Calendar | Fact Check | **Jason (human)** | Jason reviews planned content, moves cards he approves to Fact Check |
+| Fact Check | In Production | Fact Checker | Claims and topics verified, cleared for visual production |
+| In Production | In Review | Visual Designer | Moda assets created, comment added notifying Jason assets are ready |
+| In Review | Approved | **Jason (human)** | Jason downloads Moda assets, reviews everything, moves to Approved |
+| Approved | Published | Publishing Agent | Content is pushed to correct Publer workspace |
 | Published | Archive | Any agent | Previous week's content is archived |
 
-### Auto-Creation Rules
+**IMPORTANT: Agents NEVER move cards out of Content Calendar.** Only Jason does that.
+**IMPORTANT: Agents NEVER move cards from In Review to Approved.** Only Jason does that.
 
-- **Image posts** — Agent picks up card, writes copy, creates visual in Moda, moves to In Review
-- **Carousel posts** — Agent picks up card, writes copy, creates all slides in Moda, moves to In Review
-- **Video posts** — Agent writes the script, voiceover, and B-roll suggestions on the card, but the card stays in In Production until video is manually produced. Agent adds a comment noting "Video script ready — needs manual production."
+### Jason's 3 Checkpoints
+
+1. **Content Calendar → Fact Check** — Jason reviews the planned content (topic, copy, pillar). If it looks good, he moves the card to Fact Check. If not, he leaves it or comments with changes.
+
+2. **In Review → Approved** — Visual Designer has created the Moda assets and commented on the card that they're ready. Jason downloads the assets from Moda, reviews everything (copy + visuals + compliance), and moves the card to Approved.
+
+3. **Approved → Publer** — Publishing Agent handles this automatically. Jason just needs to have the assets available (attached to card or in a shared folder) so the Publishing Agent can include them in the Publer post.
+
+### Production Rules
+
+- **Image posts** — Visual Designer creates the image in Moda, adds a comment: "Moda asset ready — [link to design]". Moves card to In Review.
+- **Carousel posts** — Visual Designer creates all slides in Moda, adds a comment: "Carousel ready — [link to design] — [X] slides". Moves card to In Review.
+- **Video posts** — Card stays in In Production. Jason's team creates the video. Once done, Jason moves it to In Review himself.
 
 ### Cross-Platform Posting
 

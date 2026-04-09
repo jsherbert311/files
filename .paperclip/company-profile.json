@@ -162,6 +162,7 @@
     "description": "Social media content pipeline — always keep 4+ weeks of content ahead for every client",
     "humanGate": "Jason reviews all content in 'In Review'. Only cards he moves to 'Approved' go to Publer. Nothing auto-posts.",
     "trelloLists": ["Content Calendar", "Fact Check", "In Production", "In Review", "Approved", "Published", "Archive"],
+    "humanCheckpoints": "Jason has 3 checkpoints: (1) Reviews Content Calendar cards before moving to Fact Check, (2) Downloads Moda assets and reviews completed content before moving to Approved, (3) Nothing auto-posts — Publishing Agent only acts on Approved cards.",
     "contentCalendar": {
       "planningHorizon": "8 to 12 weeks out",
       "postsPerWeek": 4,
@@ -177,57 +178,59 @@
     "stages": [
       {
         "stage": 1,
-        "name": "Research & Plan",
+        "name": "Content Calendar",
         "agents": ["researcher", "content-planner"],
-        "output": "Competitor analysis, trending topics, and new weekly cards added to Content Calendar",
+        "output": "Trello cards with topics, formats, copy, visual direction, and content pillars — 4 posts per week, 8-12 weeks out",
         "trelloList": "Content Calendar",
         "automated": true,
-        "note": "Agents research trends and populate Content Calendar with cards 8-12 weeks out. Each card has topic, format, visual direction, and content pillar."
+        "note": "Content Strategist (with research from Competitor Analyst) creates cards and writes the post copy, captions, hashtags directly on each card. Always maintain 4+ weeks ahead."
       },
       {
         "stage": 2,
         "name": "Fact Check",
         "agents": ["fact-checker"],
-        "output": "Verified content plan — claims, compliance, and accuracy checked before production begins",
+        "output": "Verified content — claims, compliance, and accuracy checked",
         "trelloList": "Fact Check",
         "automated": true,
-        "note": "Fact Checker verifies all claims, topics, and planned content BEFORE any production work starts. This prevents wasted effort on content that would fail compliance. Cards only move to In Production after passing fact check."
+        "trigger": "JASON moves cards from Content Calendar to Fact Check after reviewing the planned content",
+        "note": "Jason reviews Content Calendar cards. If the content looks good, he moves the card to Fact Check. The Fact Checker then verifies claims and compliance per the client profile. Once cleared, Fact Checker moves the card to In Production."
       },
       {
         "stage": 3,
         "name": "In Production",
-        "agents": ["content-creator", "visual-designer"],
-        "output": "Full post copy + Moda visuals on the card",
+        "agents": ["visual-designer"],
+        "output": "Moda visuals created for image and carousel posts. Video cards get scripts only.",
         "trelloList": "In Production",
         "automated": true,
-        "note": "Agent or team member picks up a fact-checked card, writes the copy, and creates visuals in Moda (for image/carousel). Video cards get scripts written but stay here until manually produced."
+        "note": "Visual Designer creates image/carousel assets in Moda. Adds a comment to the card when assets are ready for Jason to download. Video cards: Jason's team creates the video assets manually. Cards stay here until all assets are complete."
       },
       {
         "stage": 4,
         "name": "In Review",
         "agents": [],
-        "output": "Completed content waiting for Jason's review in Trello",
+        "output": "Completed content with all assets, waiting for Jason's final review",
         "trelloList": "In Review",
         "automated": false,
-        "note": "Content lands here after production. Jason reviews in Trello. When he moves a card to the Approved list, that IS the QA approval. No separate Paperclip approval step needed."
+        "note": "Visual Designer moves completed cards here and notifies Jason that Moda assets are ready to download. Jason downloads the assets from Moda, attaches them to the Trello card or saves to a folder. Jason reviews everything — copy, visuals, compliance."
       },
       {
         "stage": 5,
         "name": "Approved",
         "agent": "publisher",
-        "output": "Jason has moved the card to Approved in Trello — Publishing Agent picks it up",
+        "output": "Publishing Agent detects cards in Approved and pushes to Publer",
         "trelloList": "Approved",
         "automated": true,
-        "note": "The Approved list in Trello IS the trigger. When Jason moves a card here, the Publishing Agent detects it and pushes the content to the correct Publer workspace. No other approval needed."
+        "trigger": "JASON moves cards from In Review to Approved after downloading assets and final review",
+        "note": "Jason moves the card to Approved in Trello. The Publishing Agent picks it up and pushes the content to the correct Publer workspace as a draft. Card moves to Published."
       },
       {
         "stage": 6,
         "name": "Published",
         "agent": "publisher",
-        "output": "Post added to correct Publer workspace (as draft or scheduled)",
+        "output": "Post added to correct Publer workspace",
         "trelloList": "Published",
         "automated": true,
-        "note": "Publishing Agent picks up Approved cards and pushes to the client's Publer workspace. Card moves to Published."
+        "note": "Card is in Publer. Content is scheduled or drafted."
       },
       {
         "stage": 7,
@@ -236,7 +239,7 @@
         "output": "Previous week's published content archived",
         "trelloList": "Archive",
         "automated": true,
-        "note": "Every Monday, previous week's Published cards move to Archive to keep the board clean."
+        "note": "Every Monday, previous week's Published cards move to Archive."
       }
     ]
   },

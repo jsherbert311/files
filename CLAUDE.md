@@ -64,13 +64,18 @@ Content Calendar → Fact Check → In Production → In Review → Approved →
 |-------|-------|-------------|-------------|
 | 1. Research & Plan | Competitor Analyst + Content Strategist | Content Calendar | Research trends, create weekly cards 8-12 weeks out (4 posts/week) |
 | 2. Fact Check | Fact Checker | Fact Check | Verify claims, topics, and compliance BEFORE production starts. Prevents wasted work. |
-| 3. In Production | Content Writer + Visual Designer | In Production | Write copy, create Moda visuals (image/carousel). Video gets scripts only. |
-| 4. In Review | — | In Review | Completed content waiting for Jason |
-| 5. **Approved** | **Jason (human)** | **Approved** | **Jason reviews and approves. Nothing moves without his sign-off.** |
+| 3. In Production | Visual Designer | In Production | Create Moda visuals for image/carousel. Video stays here for Jason's team. |
+| 4. In Review | — | In Review | Visual Designer notifies Jason assets are ready to download from Moda |
+| 5. **Approved** | **Jason (human)** | **Approved** | **Jason downloads assets, reviews everything, moves card here.** |
 | 6. Published | Publishing Agent | Published | Push to correct Publer workspace as draft |
 | 7. Archive | Content Strategist | Archive | Previous week's content archived every Monday |
 
 **Jason is the gatekeeper.** Nothing goes to Publer without his approval.
+
+### Jason's 3 Checkpoints
+1. **Content Calendar → Fact Check** — Jason reviews planned content, moves good cards to Fact Check
+2. **In Review → Approved** — Jason downloads Moda assets, reviews copy + visuals, moves to Approved
+3. **Approved → Publer** — Automatic. Publishing Agent pushes approved content to Publer.
 
 ### Content Calendar Rules
 - Always keep **4+ weeks of content ahead** for every client
